@@ -23,4 +23,4 @@ def fixture_path(file)
   File.join fixture_dir, file
 end
 
-ENV['gif_dir'] = File.join fixture_dir, 'gifs'
+ENV[Gifs::ENV_DIR_KEY] = File.join fixture_dir, 'gifs'

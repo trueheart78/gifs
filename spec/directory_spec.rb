@@ -29,15 +29,15 @@ RSpec.describe Gifs::Directory do
 
     context 'when no ENV gif_dir is provided' do
       before do
-        @storage = ENV.delete 'gif_dir'
+        @storage = ENV.delete Gifs::ENV_DIR_KEY
       end
 
       it 'explodes with a Runtime Error' do
-        expect{ subject.dirs }.to raise_error RuntimeError
+        expect { subject.dirs }.to raise_error RuntimeError
       end
 
       after do
-        ENV['gif_dir'] = @storage
+        ENV[Gifs::ENV_DIR_KEY] = @storage
       end
     end
   end

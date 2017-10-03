@@ -1,7 +1,12 @@
 #!/usr/bin/env ruby
 require 'bundler/setup'
+require 'gifs'
 require 'gifs/directory'
 
-ENV['gif_dir'] = File.expand_path '~/Dropbox/gifs'
+if ENV[Gifs::ENV_DIR_KEY]
+  ENV[Gifs::ENV_DIR_KEY] = File.expand_path ENV[Gifs::ENV_DIR_KEY]
+else
+  ENV[Gifs::ENV_DIR_KEY] = File.expand_path '~/Dropbox/gifs'
+end
 
 puts Gifs::Directory.new.to_s

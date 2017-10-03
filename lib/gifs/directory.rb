@@ -23,8 +23,8 @@ module Gifs
     private
 
     def dir
-      return File.expand_path ENV['gif_dir'] if ENV['gif_dir']
-      raise 'No gif_dir environment var provided'
+      raise "No environment var provided for #{Gifs::ENV_DIR_KEY}" unless ENV[Gifs::ENV_DIR_KEY]
+      ENV[Gifs::ENV_DIR_KEY]
     end
 
     def humanize(number)
