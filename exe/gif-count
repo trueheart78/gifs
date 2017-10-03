@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+class Scanner
+  def to_s
+    "#{gifs} gifs in #{dirs} directories"
+  end
+
+  def gifs
+    @gifs ||= Dir[ File.join(dir, '**', '*.gif') ].reject { |p| File.directory? p }.size
+    humanize @gifs
+  end
+
+  def dirs
+    @dirs ||= Dir[ File.join(dir, '**', '*') ].select { |p| File.directory? p }.size
+    humanize @dirs
+  end
+
+  def dir
+    File.expand_path '~/Dropbox/gifs'
+  end
+
+  def humanize(number)
+    number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\1,').reverse
+  end
+end
+
+puts Scanner.new.to_s
