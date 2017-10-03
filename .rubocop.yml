@@ -1,0 +1,26 @@
+Documentation:
+  Enabled: false
+
+AllCops:
+  Include:
+    - rubocop-rspec
+  Exclude:
+    - 'Gemfile*'
+    - 'Rakefile'
+    - 'bin/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'spec/rails_helper\.rb'
+    - 'spec/spec_helper\.rb'
+
+# skips style of child classes and modules.
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context', 'shared_examples']
+
+Metrics/LineLength:
+  Max: 100
