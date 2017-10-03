@@ -3,4 +3,7 @@ require 'simplecov-rcov'
 
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.minimum_coverage 93
-SimpleCov.start
+
+SimpleCov.start do
+  add_filter '/spec/'
+end

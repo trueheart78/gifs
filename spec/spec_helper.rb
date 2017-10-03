@@ -1,6 +1,6 @@
 require 'bundler/setup'
-require 'gifs'
 require 'support/simplecov'
+require 'gifs'
 require 'byebug'
 
 RSpec.configure do |config|
