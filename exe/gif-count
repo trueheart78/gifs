@@ -1,25 +1,7 @@
 #!/usr/bin/env ruby
+require 'bundler/setup'
+require 'gifs/directory'
 
-class Scanner
-  def to_s
-    "#{humanize(gifs)} gifs in #{humanize(dirs)} directories"
-  end
+ENV['gif_dir'] = File.expand_path '~/Dropbox/gifs'
 
-  def gifs
-    @gifs ||= Dir[File.join(dir, '**', '*.gif')].reject { |p| File.directory? p }.size
-  end
-
-  def dirs
-    @dirs ||= Dir[File.join(dir, '**', '*')].select { |p| File.directory? p }.size
-  end
-
-  def dir
-    File.expand_path '~/Dropbox/gifs'
-  end
-
-  def humanize(number)
-    number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\1,').reverse
-  end
-end
-
-puts Scanner.new.to_s
+puts Gifs::Directory.new.to_s

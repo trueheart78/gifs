@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'gifs'
 require 'support/simplecov'
+require 'byebug'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -13,3 +14,13 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+def fixture_dir
+  File.join Dir.getwd, 'spec', 'fixtures'
+end
+
+def fixture_path(file)
+  File.join fixture_dir, file
+end
+
+ENV['gif_dir'] = File.join fixture_dir, 'gifs'
