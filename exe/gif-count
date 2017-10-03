@@ -2,17 +2,15 @@
 
 class Scanner
   def to_s
-    "#{gifs} gifs in #{dirs} directories"
+    "#{humanize(gifs)} gifs in #{humanize(dirs)} directories"
   end
 
   def gifs
-    @gifs ||= Dir[ File.join(dir, '**', '*.gif') ].reject { |p| File.directory? p }.size
-    humanize @gifs
+    @gifs ||= Dir[File.join(dir, '**', '*.gif')].reject { |p| File.directory? p }.size
   end
 
   def dirs
-    @dirs ||= Dir[ File.join(dir, '**', '*') ].select { |p| File.directory? p }.size
-    humanize @dirs
+    @dirs ||= Dir[File.join(dir, '**', '*')].select { |p| File.directory? p }.size
   end
 
   def dir
