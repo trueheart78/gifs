@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 require 'bundler/setup'
 require 'gifs'
-require 'gifs/directory'
 
 if ENV[Gifs::ENV_DIR_KEY]
   ENV[Gifs::ENV_DIR_KEY] = File.expand_path ENV[Gifs::ENV_DIR_KEY]

@@ -3,6 +3,10 @@ require 'support/simplecov'
 require 'gifs'
 require 'byebug'
 
+Dir[File.join(Dir.getwd, 'spec/support/*.rb')].each { |f| require f }
+
+ENV[Gifs::ENV_DIR_KEY] = gif_dir
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
@@ -15,12 +19,3 @@ RSpec.configure do |config|
   end
 end
 
-def fixture_dir
-  File.join Dir.getwd, 'spec', 'fixtures'
-end
-
-def fixture_path(file)
-  File.join fixture_dir, file
-end
-
-ENV[Gifs::ENV_DIR_KEY] = File.join fixture_dir, 'gifs'

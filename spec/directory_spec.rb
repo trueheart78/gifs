@@ -12,6 +12,19 @@ RSpec.describe Gifs::Directory do
     let(:output) { "#{subject.gif_count} gifs in #{subject.dir_count} directories" }
   end
 
+  describe '#gifs' do
+    it 'returns the expected array' do
+      expect(subject.gifs).to match_array array
+    end
+
+    let(:array) do
+      [
+        gif_path('thumbs up/sample.gif'),
+        gif_path('thumbs down/sample.gif')
+      ]
+    end
+  end
+
   describe '#gif_count' do
     it 'returns the expected count' do
       expect(subject.gif_count).to eq count
