@@ -9,7 +9,7 @@ RSpec.describe Gifs::Directory do
       expect(subject.to_s).to eq output
     end
 
-    let(:output) { "#{subject.gif_count} gifs in #{subject.dir_count} directories" }
+    let(:output) { "#{subject.gifs.size} gifs in #{subject.dirs.size} directories" }
   end
 
   describe '#gifs' do
@@ -36,22 +36,6 @@ RSpec.describe Gifs::Directory do
         gif_path('thumbs down')
       ]
     end
-  end
-
-  describe '#gif_count' do
-    it 'returns the expected count' do
-      expect(subject.gif_count).to eq count
-    end
-
-    let(:count) { 2 }
-  end
-
-  describe '#dir_count' do
-    it 'returns the expected count' do
-      expect(subject.dir_count).to eq count
-    end
-
-    let(:count) { 2 }
 
     context 'when no ENV gif_dir is provided' do
       before do

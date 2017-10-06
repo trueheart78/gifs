@@ -5,15 +5,7 @@ module Gifs
     end
 
     def to_s
-      "#{humanize(gif_count)} gifs in #{humanize(dir_count)} directories"
-    end
-
-    def gif_count
-      gifs.size
-    end
-
-    def dir_count
-      dirs.size
+      "#{humanize(gifs.size)} gifs in #{humanize(dirs.size)} directories"
     end
 
     def gifs
