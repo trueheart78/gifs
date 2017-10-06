@@ -8,4 +8,4 @@ else
   ENV[Gifs::ENV_DIR_KEY] = File.expand_path '~/Dropbox/gifs'
 end
 
-puts Gifs::Directory.new.to_s
+puts Gifs::Directory.new(criteria: ARGV).to_s
