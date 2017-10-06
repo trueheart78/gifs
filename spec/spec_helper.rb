@@ -1,11 +1,16 @@
 require 'bundler/setup'
+require 'webmock/rspec'
+require 'rspec/junklet'
 require 'support/simplecov'
 require 'gifs'
 require 'byebug'
 
+Dir[File.join(Dir.getwd, 'spec/contexts/*.rb')].each { |f| require f }
 Dir[File.join(Dir.getwd, 'spec/support/*.rb')].each { |f| require f }
 
-ENV[Gifs::ENV_DIR_KEY] = gif_dir
+# override the config
+ENV[Gifs::Config::DROPBOX_PATH] = fixture_dir
+ENV[Gifs::Config::DROPBOX_TOKEN] = 'spec-helper-token'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -18,4 +23,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-

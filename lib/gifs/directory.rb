@@ -49,18 +49,20 @@ module Gifs
       criteria.select { |c| File.directory?(File.join(dir, c)) }
     end
 
+    def base_criteria_dirs
+      gifs.map do |path|
+        path.gsub(dir + '/', '')
+            .split('/')
+            .reject { |file| file.end_with? '.gif' }
+      end
+    end
+
     def unique_criteria_dirs
-      gifs.map { |v| v.gsub(dir + '/', '')
-        .split('/')
-        .reject { |v| v.end_with? '.gif' } }
-        .flatten
-        .uniq
-        .map { |v| File.join(dir, v) }
+      base_criteria_dirs.flatten.uniq.map { |file| File.join(dir, file) }
     end
 
     def dir
-      raise "No environment var provided for #{Gifs::ENV_DIR_KEY}" unless ENV[Gifs::ENV_DIR_KEY]
-      ENV[Gifs::ENV_DIR_KEY]
+      Gifs.gifs_path
     end
 
     def humanize(number)

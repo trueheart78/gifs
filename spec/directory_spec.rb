@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'gifs/directory'
 
 RSpec.describe Gifs::Directory do
-  subject { described_class.new }
+  subject { described_class.new criteria: criteria }
 
   describe '#to_s' do
     it 'returns the expected output' do
@@ -13,15 +13,47 @@ RSpec.describe Gifs::Directory do
   end
 
   describe '#gifs' do
-    it 'returns the expected array' do
-      expect(subject.gifs).to match_array array
+    context 'without search criteria' do
+      it 'returns the expected array' do
+        expect(subject.gifs).to match_array array
+      end
+
+      let(:array) do
+        [
+          gif_path('thumbs up/sample.gif'),
+          gif_path('thumbs down/sample.gif')
+        ]
+      end
     end
 
-    let(:array) do
-      [
-        gif_path('thumbs up/sample.gif'),
-        gif_path('thumbs down/sample.gif')
-      ]
+    context 'with matching search criteria' do
+      it 'returns the expected array' do
+        expect(subject.gifs).to match_array array
+      end
+
+      let(:criteria) { ['thumbs up'] }
+      let(:array) do
+        [
+          gif_path('thumbs up/sample.gif')
+        ]
+      end
+    end
+
+    context 'with matching search criteria that is empty' do
+      it 'returns the expected array' do
+        expect(subject.gifs).to match_array array
+      end
+
+      let(:criteria) { ['empty'] }
+      let(:array) { [] }
+    end
+
+    context 'with unmatching search criteria' do
+      it 'returns the expected array' do
+        expect(subject.gifs).to be_empty
+      end
+
+      let(:criteria) { ['dfalkshfdlkjsahfsalkj'] }
     end
   end
 
@@ -32,23 +64,12 @@ RSpec.describe Gifs::Directory do
 
     let(:array) do
       [
+        gif_path('empty'),
         gif_path('thumbs up'),
         gif_path('thumbs down')
       ]
     end
-
-    context 'when no ENV gif_dir is provided' do
-      before do
-        @storage = ENV.delete Gifs::ENV_DIR_KEY
-      end
-
-      it 'explodes with a Runtime Error' do
-        expect { subject.dirs }.to raise_error RuntimeError
-      end
-
-      after do
-        ENV[Gifs::ENV_DIR_KEY] = @storage
-      end
-    end
   end
+
+  let(:criteria) { [] }
 end
