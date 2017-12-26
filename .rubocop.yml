@@ -17,6 +17,7 @@ Style/ClassAndModuleChildren:
 Metrics/BlockLength:
   Exclude:
     - '*.gemspec'
+    - 'spec/*/**'
   ExcludedMethods: ['describe', 'context', 'shared_examples']
 
 Metrics/LineLength:

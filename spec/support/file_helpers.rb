@@ -13,3 +13,15 @@ end
 def gif_path(file)
   File.join gif_dir, file
 end
+
+def existing_gifs
+  ['thumbs up/sample.gif', 'thumbs down/sample.gif']
+end
+
+def existing_gif
+  existing_gifs.sample
+end
+
+def non_existent_gif
+  "#{junk}.gif"
+end

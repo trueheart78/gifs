@@ -1,8 +1,10 @@
 # Gifs
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gifs`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![CircleCI](https://circleci.com/gh/trueheart78/gifs.svg?style=svg)](https://circleci.com/gh/trueheart78/gifs)
 
-TODO: Delete this and the text above, and describe your gem
+Gif management using Dropbox public links and Sqlite in a gem package. :heart:
+
+Currently requires access to Dropbox via the `~/Dropbox` path. Expects a `~/Dropbox/gifs` directory storing gifs. This is also where the database file will be created, to track public Dropbox links for each gif.
 
 ## Installation
 
@@ -19,6 +21,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install gifs
+
+## Dropbox Integration
+
+First, you need to create a new Dropbox app, using the **Dropbox API** (not the business option), with **Full Dropbox** access. Once you have that setup, you will need to click the _Generate_ button beneath the **Generate Access Token** header of the **OAuth2** section. This is the token that will be used for interacting with your Dropbox account.
 
 ## Usage
 

@@ -26,13 +26,22 @@ Gem::Specification.new do |spec|
   end
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  spec.require_paths = %w[lib db]
 
+  spec.add_runtime_dependency 'activerecord', '~> 5.1.4'
+  spec.add_runtime_dependency 'activesupport', '~> 5.1.4'
+  spec.add_runtime_dependency 'sqlite3', '~> 1.3.13'
+  spec.add_runtime_dependency 'faraday', '~> 0.13.1'
+  spec.add_runtime_dependency 'typhoeus', '~> 1.3.0'
+  spec.add_runtime_dependency 'clipboard'
   spec.add_development_dependency 'bundler', '~> 1'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rspec-junklet', '~> 2.2'
+  spec.add_development_dependency 'webmock', '~> 3.0.1'
   spec.add_development_dependency 'simplecov', '~> 0.15.1'
   spec.add_development_dependency 'simplecov-rcov', '~> 0.2.3'
   spec.add_development_dependency 'rubocop', '~> 0.50'
   spec.add_development_dependency 'byebug', '~> 9.1'
+  spec.add_development_dependency 'rspec_junit_formatter', '~> 0.3.0' # circleci requirement
 end
