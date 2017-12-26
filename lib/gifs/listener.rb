@@ -17,14 +17,23 @@ module Gifs
 
       def handle_input(entry)
         if Gifs.gif_exists? entry
-          link = Gifs::Dropbox.new.public_link file_path: File.join('/gifs', entry)
-          Clipboard.copy link.url
-          output entry, link
+          record entry
         else
           puts 'error: file does not exist' + " [#{entry}]"
         end
       rescue Gifs::Dropbox::Error => e
         puts "dropbox error: #{e.message}"
+      end
+
+      def record(entry)
+        # TODO: check for existing gif db record, create if missing
+        # TODO: check for existing dropbox_link db record
+        unless link
+          link = Gifs::Dropbox.new.public_link file_path: File.join('/gifs', entry)
+          # TODO: create missing dropbox_link record
+        end
+        Clipboard.copy link.url
+        output entry, link
       end
 
       def output(entry, link)
