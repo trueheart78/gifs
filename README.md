@@ -24,11 +24,86 @@ Or install it yourself as:
 
 ## Dropbox Integration
 
-First, you need to create a new Dropbox app, using the **Dropbox API** (not the business option), with **Full Dropbox** access. Once you have that setup, you will need to click the _Generate_ button beneath the **Generate Access Token** header of the **OAuth2** section. This is the token that will be used for interacting with your Dropbox account.
+First, you need to create a new [Dropbox app][dropbox-new-app], using the **Dropbox API** (not the business option), with **Full Dropbox** access. Once you have that setup, you will need to click the _Generate_ button beneath the **Generate Access Token** header of the **OAuth2** section. This is the token that will be used for interacting with your Dropbox account.
+
+### Configuration File
+
+The configuration file needs to be created at `~/.gifs_config`, in YAML format.
+
+Sample config file:
+
+```yaml
+DROPBOX_PATH: ~/Dropbox
+DROPBOX_TOKEN: dropbox-generated-access-token
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+There are currently two executables that can be called.
+
+### `gif-listener`
+
+Listens for gif paths to be entered and checks with the local database before reaching out to create a new shareable link via the Dropbox API.
+
+Data displayed includes the name of the gif, the shareable link, and a markdown version of the shareable link.
+
+```
+Waiting for input...
+'/home/josh/Dropbox/gifs/love it/taylor.gif' 
+**********
+gif: /love it/taylor.gif
+url: https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif
+markdown: ![taylor.gif](https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif)
+**********
+Waiting for input...
+```
+
+### `gif-count`
+
+Without any arguments, it outputs the total number of gifs found.
+
+```
+1,358 gifs in 360 directories
+```
+
+With an argument, it will list the number of gifs found in matching directories.
+
+```
+$ gif-count angry
+13 gifs in 1 directories
+
+$ tree ~/Dropbox/gifs/angry
+/home/josh/Dropbox/gifs/angry
+├── banner.gif
+├── bender.gif
+├── brushstration.gif
+├── carey.gif
+├── conan.gif
+├── dipper - snack -gravity falls.gif
+├── farva - super troopers.gif
+├── frick.gif
+├── fry.gif
+├── grunkle stand - hand gesture - gravity falls.gif
+├── hermes.gif
+├── snoopy.gif
+└── spock.gif
+```
+
+It also checks sub-directories when passed an argument.
+
+```
+$ exe/gif-count taylor\ swift
+5 gifs in 2 directories
+
+$ tree ~/Dropbox/gifs/taylor\ swift
+/home/josh/Dropbox/gifs/taylor swift
+└── lwymmd
+    ├── taylor bat focused.gif
+    ├── taylor bat mask removal.gif
+    ├── taylor bat money swing.gif
+    ├── taylor bat pointing.gif
+    └── taylor swift motorcycle gear.gif
+```
 
 ## Development
 
@@ -47,3 +122,5 @@ The gem is available as open source under the terms of the [MIT License](http://
 ## Code of Conduct
 
 Everyone interacting in the Gifs project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/gifs/blob/master/CODE_OF_CONDUCT.md).
+
+[dropbox-new-app]: https://www.dropbox.com/developers/apps

@@ -45,7 +45,22 @@ module Gifs
       end
 
       def clean_input(input)
-        input.delete('\\').strip
+        input.strip!
+        if apostrophes? input
+          input[1...-1].gsub(".gif' '", '.gif ').strip
+        elsif double_quotes? input
+          input[1...-1].gsub('.gif" "', '.gif ').strip
+        else
+          input.delete('\\').strip
+        end
+      end
+
+      def apostrophes?(input)
+        input.starts_with?("'") && input.ends_with?("'")
+      end
+
+      def double_quotes?(input)
+        input.starts_with?('"') && input.ends_with?('"')
       end
 
       def multiple_entries?(input)
