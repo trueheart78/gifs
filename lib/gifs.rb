@@ -35,8 +35,23 @@ module Gifs
       load 'schema.rb'
     end
 
+    def db_disconnect
+      ActiveRecord::Base.remove_connection
+    end
+
     def db_path
-      File.join(gifs_path, 'ruby_gif_manager.db')
+      Dir.mkdir data_path unless Dir.exist? data_path
+      File.join data_path, db_name
+    end
+
+    private
+
+    def data_path
+      File.join gifs_path, ".#{self.name.downcase}"
+    end
+
+    def db_name
+      "#{self.name.downcase}.sqlite3.db"
     end
   end
 end
