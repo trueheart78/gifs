@@ -3,7 +3,8 @@ ActiveRecord::Schema.define do
 
   unless ActiveRecord::Base.connection.table_exists? :gifs
     create_table :gifs, force: true do |t|
-      t.string :name
+      t.string :base_name
+      t.string :directory
       t.integer :size
 
       t.timestamps
@@ -12,9 +13,9 @@ ActiveRecord::Schema.define do
 
   unless ActiveRecord::Base.connection.table_exists? :dropbox_links
     create_table :dropbox_links, force: true do |t|
-      t.belongs_to :gifs, index: true
+      t.belongs_to :gifs, index: true, foreign_key: true
+      t.string :dropbox_id, index: true
       t.string :remote_path
-      t.string :dropbox_id
 
       t.timestamps
     end
