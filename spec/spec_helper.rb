@@ -4,9 +4,11 @@ require 'rspec/junklet'
 require 'support/simplecov'
 require 'gifs'
 require 'byebug'
+require 'factory_bot'
 
 Dir[File.join(Dir.getwd, 'spec/contexts/*.rb')].each { |f| require f }
 Dir[File.join(Dir.getwd, 'spec/support/*.rb')].each { |f| require f }
+Dir[File.join(Dir.getwd, 'spec/shared/*.rb')].each { |f| require f }
 
 # override the config
 ENV[Gifs::Config::DROPBOX_PATH] = fixture_dir

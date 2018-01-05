@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 module Gifs
   class Config
     include Singleton
+
     ConfigNotFound = Class.new StandardError
     MissingConfigValues = Class.new StandardError
 
     CONFIG_FILE = File.expand_path('~/.gifs_config').freeze
-    DROPBOX_PATH = 'DROPBOX_PATH'.freeze
-    DROPBOX_TOKEN = 'DROPBOX_TOKEN'.freeze
+    DROPBOX_PATH = 'DROPBOX_PATH'
+    DROPBOX_TOKEN = 'DROPBOX_TOKEN'
 
     def initialize
       return if required_keys? ENV

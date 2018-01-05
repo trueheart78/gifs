@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Gifs do
@@ -103,10 +105,12 @@ RSpec.describe Gifs do
       allow(described_class).to receive(:gifs_path).and_return temp_database_dir
     end
 
-    it 'appends the database filename onto the gifs_path' do
+    it 'uses a hidden directory to store the sqlite3 database' do
       expect(subject).to eq database_path
     end
 
-    let(:database_path) { File.join temp_database_dir, 'ruby_gif_manager.db' }
+    let(:database_path) { File.join temp_database_dir, '.gifs', 'gifs.sqlite3.db' }
   end
+
+  let(:skip_database_connection) { true }
 end

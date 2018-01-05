@@ -1,14 +1,21 @@
+# frozen_string_literal: true
+
 require 'active_record'
 require 'sqlite3'
+require 'colorize'
 require 'clipboard'
+require 'byebug'
 require 'gifs/version'
 require 'gifs/config'
+require 'gifs/theme'
 require 'gifs/directory'
-require 'gifs/gif'
+require 'gifs/models/gif'
+require 'gifs/models/shared_link'
 require 'gifs/link'
-require 'gifs/dropbox_link'
 require 'gifs/dropbox'
+require 'gifs/entry'
 require 'gifs/listener'
+require 'gifs/input_handler'
 
 module Gifs
   class << self
@@ -35,8 +42,23 @@ module Gifs
       load 'schema.rb'
     end
 
+    def db_disconnect
+      ActiveRecord::Base.remove_connection
+    end
+
     def db_path
-      File.join(gifs_path, 'ruby_gif_manager.db')
+      Dir.mkdir data_path unless Dir.exist? data_path
+      File.join data_path, db_name
+    end
+
+    private
+
+    def data_path
+      File.join gifs_path, ".#{name.downcase}"
+    end
+
+    def db_name
+      "#{name.downcase}.sqlite3.db"
     end
   end
 end
