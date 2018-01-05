@@ -37,11 +37,11 @@ module Gifs
       end
 
       def output(entry, link)
-        puts '**********'
+        puts '----------'
         puts "gif: #{entry}"
         puts "url: #{link.url}"
         puts "markdown: #{link.to_md}"
-        puts '**********'
+        puts '----------'
       end
 
       def exit_gracefully
