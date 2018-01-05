@@ -58,6 +58,8 @@ markdown: ![taylor.gif](https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/tayl
 Waiting for input...
 ```
 
+![taylor.gif](https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif)
+
 ### `gif-count`
 
 Without any arguments, it outputs the total number of gifs found.
@@ -92,7 +94,7 @@ $ tree ~/Dropbox/gifs/angry
 It also checks sub-directories when passed an argument.
 
 ```
-$ exe/gif-count taylor\ swift
+$ gif-count taylor\ swift
 5 gifs in 2 directories
 
 $ tree ~/Dropbox/gifs/taylor\ swift
