@@ -50,11 +50,9 @@ Data displayed includes the name of the gif, the shareable link, and a markdown 
 ```
 Waiting for input...
 '/home/josh/Dropbox/gifs/love it/taylor.gif' 
-**********
 gif: /love it/taylor.gif
 url: https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif
 markdown: ![taylor.gif](https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif)
-**********
 Waiting for input...
 ```
 
@@ -106,6 +104,10 @@ $ tree ~/Dropbox/gifs/taylor\ swift
     ├── taylor bat pointing.gif
     └── taylor swift motorcycle gear.gif
 ```
+
+## Database Storage
+
+The SQLite database file can be found in the `Dropbox/gifs/.gifs` directory, as `gifs.sqlite.db`.
 
 ## Development
 
