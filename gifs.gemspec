@@ -6,10 +6,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'gifs'
   spec.version       = Gifs::VERSION
   spec.authors       = ['Josh Mills']
-  spec.email         = ['jmills@covermymeds.com']
+  spec.email         = ['josh@trueheart78.com']
 
   spec.summary       = 'A gif manager for my ever-growing collection.'
-  spec.homepage      = 'http://blog.trueheart78.com'
+  spec.homepage      = 'https://github.com/trueheart78/gifs'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
