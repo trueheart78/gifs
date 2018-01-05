@@ -45,7 +45,7 @@ There are currently two executables that can be called.
 
 Listens for gif paths to be entered and checks with the local database before reaching out to create a new shareable link via the Dropbox API.
 
-Data displayed includes the name of the gif, the shareable link, and a markdown version of the shareable link.
+Data displayed includes the name of the gif, the shareable link, and a markdown version of the shareable link. Where applicable, it will also copy the url to your clipboard.
 
 ```
 Waiting for input...
