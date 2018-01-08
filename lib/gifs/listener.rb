@@ -28,12 +28,12 @@ module Gifs
       def record(entry)
         # TODO: check for existing gif db record, create if missing
         # TODO: check for existing dropbox_link db record
-        unless link
-          link = Gifs::Dropbox.new.public_link file_path: File.join('/gifs', entry)
+        unless @link
+          @link = Gifs::Dropbox.new.public_link file_path: File.join('/gifs', entry)
           # TODO: create missing dropbox_link record
         end
-        Clipboard.copy link.url
-        output entry, link
+        Clipboard.copy @link.url
+        output entry, @link
       end
 
       def output(entry, link)
