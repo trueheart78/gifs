@@ -1,9 +1,11 @@
 RSpec.shared_context 'database' do
   before(:each) do
     allow(Gifs).to receive(:db_path).and_return temp_database_path
+    Gifs.db_connect unless skip_database_connection
   end
 
   after(:each) do
+    Gifs.db_disconnect
     FileUtils.remove_entry temp_database_dir
   end
 
@@ -20,6 +22,7 @@ RSpec.shared_context 'database' do
     File.exist? temp_database_path
   end
 
-  let(:temp_database_dir)  { Dir.mktmpdir }
-  let(:temp_database_path) { File.join temp_database_dir, "#{junk}.db" }
+  let(:skip_database_connection) { false }
+  let(:temp_database_dir)        { Dir.mktmpdir }
+  let(:temp_database_path)       { File.join temp_database_dir, "#{junk}.db" }
 end

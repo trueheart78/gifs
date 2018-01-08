@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec-junklet', '~> 2.2'
+  spec.add_development_dependency 'factory_bot', '~> 4.8'
   spec.add_development_dependency 'webmock', '~> 3.0.1'
   spec.add_development_dependency 'simplecov', '~> 0.15.1'
   spec.add_development_dependency 'simplecov-rcov', '~> 0.2.3'

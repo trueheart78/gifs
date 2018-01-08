@@ -13,7 +13,7 @@ ActiveRecord::Schema.define do
 
   unless ActiveRecord::Base.connection.table_exists? :dropbox_links
     create_table :dropbox_links, force: true do |t|
-      t.belongs_to :gifs, index: true, foreign_key: true
+      t.belongs_to :gif, index: true, foreign_key: true
       t.string :dropbox_id, index: true
       t.string :remote_path
 

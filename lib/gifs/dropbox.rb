@@ -8,6 +8,8 @@ module Gifs
   class Dropbox
     Error = Class.new StandardError
 
+    PUBLIC_HOST = 'https://dl.dropboxusercontent.com'.freeze
+
     def public_link(file_path:)
       @file_path = file_path
       check_existing_link

@@ -1,6 +1,7 @@
 module Gifs
   class Config
     include Singleton
+
     ConfigNotFound = Class.new StandardError
     MissingConfigValues = Class.new StandardError
 

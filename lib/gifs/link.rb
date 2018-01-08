@@ -9,7 +9,7 @@ module Gifs
     end
 
     def url
-      ['https://dl.dropboxusercontent.com', path].compact.join
+      [Dropbox::PUBLIC_HOST, path].compact.join
     end
 
     def to_s

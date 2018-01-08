@@ -109,4 +109,6 @@ RSpec.describe Gifs do
 
     let(:database_path) { File.join temp_database_dir, '.gifs', 'gifs.sqlite3.db' }
   end
+
+  let(:skip_database_connection) { true }
 end
