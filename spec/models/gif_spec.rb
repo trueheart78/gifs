@@ -12,6 +12,4 @@ RSpec.describe Gifs::Models::Gif do
       expect(subject.options[:dependent]).to be_nil
     end
   end
-
-  subject {}
 end
