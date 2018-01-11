@@ -16,6 +16,7 @@ ActiveRecord::Schema.define do
       t.belongs_to :gif, index: true, foreign_key: true
       t.string :dropbox_id, index: true
       t.string :remote_path
+      t.integer :count, default: 0, index: true
 
       t.timestamps
     end
