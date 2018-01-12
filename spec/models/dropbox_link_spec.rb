@@ -21,6 +21,14 @@ RSpec.describe Gifs::Models::DropboxLink do
     it { is_expected.to respond_to :count }
   end
 
+  describe '#count' do
+    subject { described_class.new.count }
+
+    it 'defaults to 0' do
+      is_expected.to eq 0
+    end
+  end
+
   describe '#url' do
     subject { dropbox_link.url }
 
