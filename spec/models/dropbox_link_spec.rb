@@ -13,6 +13,14 @@ RSpec.describe Gifs::Models::DropboxLink do
     end
   end
 
+  context 'public api' do
+    subject { described_class.new }
+
+    it { is_expected.to respond_to :dropbox_id }
+    it { is_expected.to respond_to :remote_path }
+    it { is_expected.to respond_to :count }
+  end
+
   describe '#url' do
     subject { dropbox_link.url }
 
