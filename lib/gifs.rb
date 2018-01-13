@@ -8,6 +8,7 @@ require 'gifs/models/gif'
 require 'gifs/models/dropbox_link'
 require 'gifs/link'
 require 'gifs/dropbox'
+require 'gifs/entry'
 require 'gifs/listener'
 
 module Gifs

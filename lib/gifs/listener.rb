@@ -7,42 +7,21 @@ module Gifs
         parse(input).each do |entry|
           kick_out = true if exit_code? entry
           break if kick_out
-          handle_input "#{entry}.gif" unless exit_code? entry
+          butts = Entry.new "#{entry}.gif"
+          if butts.create_link
+            puts butts
+            Clipboard.copy butts.url
+          else
+            puts "unable to location file [#{entry}.gif]"
+          end
         end
         start unless kick_out
         exit_gracefully if kick_out
-      end
-
-      private
-
-      def handle_input(entry)
-        if Gifs.gif_exists? entry
-          record entry
-        else
-          puts 'error: file does not exist' + " [#{entry}]"
-        end
       rescue Gifs::Dropbox::Error => e
         puts "dropbox error: #{e.message}"
       end
 
-      def record(entry)
-        # TODO: check for existing gif db record, create if missing
-        # TODO: check for existing dropbox_link db record
-        unless @link
-          @link = Gifs::Dropbox.new.public_link file_path: File.join('/gifs', entry)
-          # TODO: create missing dropbox_link record
-        end
-        Clipboard.copy @link.url
-        output entry, @link
-      end
-
-      def output(entry, link)
-        puts '----------'
-        puts "gif: #{entry}"
-        puts "url: #{link.url}"
-        puts "markdown: #{link.to_md}"
-        puts '----------'
-      end
+      private
 
       def exit_gracefully
         puts 'Exiting.'
