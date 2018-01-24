@@ -12,7 +12,7 @@ module Gifs
             puts butts
             Clipboard.copy butts.url
           else
-            puts "unable to location file [#{entry}.gif]"
+            puts "unable to locate file [#{entry}.gif]"
           end
         end
         start unless kick_out

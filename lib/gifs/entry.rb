@@ -15,6 +15,7 @@ module Gifs
     end
 
     def to_s
+      return unless link
       [
         '----------',
         "gif: #{link.base_name}",
@@ -48,9 +49,6 @@ module Gifs
 
     def load_record
       unless dropbox_link
-
-
-
       end
 
       unless @link
