@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Gifs::Models::DropboxLink do
+RSpec.describe Gifs::Models::SharedLink do
   include_context 'database'
 
   context 'gif association' do
@@ -30,34 +30,35 @@ RSpec.describe Gifs::Models::DropboxLink do
   end
 
   describe '#url' do
-    subject { dropbox_link.url }
+    subject { shared_link.url }
 
     it 'returns a url' do
       expect(subject).to eq expected_url
     end
 
     let(:expected_url) do
-      URI.join(Gifs::Dropbox::PUBLIC_HOST, remote_path).to_s
+      URI.join(Gifs::Dropbox::PUBLIC_HOST, File.join(remote_path, basename)).to_s
     end
   end
 
-  describe '#to_md' do
-    subject { dropbox_link.to_md }
+  describe '#md' do
+    subject { shared_link.md }
 
     it 'returns markdown for an image' do
       expect(subject).to eq expected_md
     end
 
     let(:expected_md) do
-      "![#{dropbox_link.base_name}](#{dropbox_link.url})"
+      "![#{shared_link.basename}](#{shared_link.url})"
     end
   end
 
   junklet :dropbox_id
-  let(:remote_path) { "s/#{junk}/#{junk}.gif" }
+  let(:remote_path) { "/s/#{junk}" }
+  let(:basename)    { 'sample.gif' }
 
-  let(:dropbox_link) do
-    FactoryBot.create :dropbox_link,
+  let(:shared_link) do
+    FactoryBot.create :shared_link,
                       dropbox_id: dropbox_id,
                       remote_path: remote_path
   end

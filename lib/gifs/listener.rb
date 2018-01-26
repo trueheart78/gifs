@@ -1,73 +1,75 @@
 module Gifs
   class Listener
-    class << self
-      def start
-        input = clean_input prompt_input
-        kick_out = false
-        parse(input).each do |entry|
-          kick_out = true if exit_code? entry
-          break if kick_out
-          butts = Entry.new "#{entry}.gif"
-          if butts.create_link
-            puts butts
-            Clipboard.copy butts.url
-          else
-            puts "unable to locate file [#{entry}.gif]"
-          end
-        end
-        start unless kick_out
-        exit_gracefully if kick_out
-      rescue Gifs::Dropbox::Error => e
-        puts "dropbox error: #{e.message}"
-      end
+		def initialize(mode=:url)
+			@mode = mode
+		end
 
-      private
-
-      def exit_gracefully
-        puts 'Exiting.'
-      end
-
-      def prompt_input
-        puts 'Waiting for input...'
-        gets.chomp
-      end
-
-      def clean_input(input)
-        input.strip!
-        if apostrophes? input
-          input[1...-1].gsub(".gif' '", '.gif ').strip
-        elsif double_quotes? input
-          input[1...-1].gsub('.gif" "', '.gif ').strip
+		def start
+			Gifs::db_connect
+      welcome_user unless input_handler
+			input_handler(prompt_input).process
+			if input_handler.continue?
+				if input_handler.mode_change?
+					@mode = input_handler.mode
+          display_mode_shift
         else
-          input.delete('\\').strip
+          input_handler.entries.each do |entry|
+            puts entry
+          end
+          @recent_entry = input_handler.entry
         end
+        if recent_entry
+          Clipboard.copy recent_entry.send(mode)
+          display_copied_data if input_handler.mode_change?
+        end
+      else
+        exit_gracefully
+        return
       end
+      start
+    ensure
+      Gifs::db_disconnect
+    end
 
-      def apostrophes?(input)
-        input.starts_with?("'") && input.ends_with?("'")
-      end
+    private
 
-      def double_quotes?(input)
-        input.starts_with?('"') && input.ends_with?('"')
-      end
+    attr_reader :mode, :recent_entry
 
-      def multiple_entries?(input)
-        return true if input.scan('.gif').size > 1
-        false
-      end
+    def display_mode_shift
+      puts "♪ mode shifted to #{mode} ♪".colorize(Theme.mode_shift)
+    end
 
-      def parse(input)
-        input.gsub(Gifs.gifs_path, '').split('.gif').map(&:strip)
-      end
+    def display_copied_data
+      puts "#{recent_entry.send(mode)}".colorize(Theme.clipboard)
+    end
 
-      def exit_code?(input)
-        return true if exit_phrases.include? input.downcase
-        false
-      end
+    def reset_input_handler
+      @input_handler = nil
+    end
 
-      def exit_phrases
-        %w[exit quit q e :q :e]
+    def input_handler(input=nil)
+      if input
+        @input_handler = InputHandler.new(input: input, mode: mode)
       end
+      @input_handler
+    end
+
+    def prompt_input
+      print 'Waiting for input...'.colorize(Theme.prompt)
+      puts "               ♪ #{mode} ♪".colorize(Theme.mode_shift)
+      gets.chomp
+    end
+
+    def welcome_user
+      print '♥'.colorize(Theme.heart)
+      print ' Welcome '.colorize(Theme.welcome)
+      puts '♥'.colorize(Theme.heart)
+    end
+
+    def exit_gracefully
+      print '♥'.colorize(Theme.heart)
+      print ' Goodbye '.colorize(Theme.goodbye)
+      puts '♥'.colorize(Theme.heart)
     end
   end
 end

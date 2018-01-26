@@ -10,16 +10,16 @@ module Gifs
 
     PUBLIC_HOST = 'https://dl.dropboxusercontent.com'.freeze
 
-    def public_link(file_path:)
-      @file_path = file_path
-      check_existing_link
-      create_link unless link.present?
-      link
+    def public_link(file_path:, directory: '/gifs')
+      @file_path = File.join(directory, file_path)
+      check_existing_shared_link
+      create_shared_link unless shared_link.present?
+      shared_link
     end
 
     private
 
-    attr_reader :file_path, :json, :link, :request
+    attr_reader :file_path, :json, :shared_link, :request
 
     def validate_file_path
       @file_path = "/#{file_path}" unless file_path.start_with? '/'
@@ -42,11 +42,11 @@ module Gifs
       end
     end
 
-    def check_existing_link
+    def check_existing_shared_link
       make_request existing_path, data
     end
 
-    def create_link
+    def create_shared_link
       make_request creation_path, creation_data
     end
 
@@ -67,7 +67,7 @@ module Gifs
 
     def handle_response
       @json = JSON.parse(request.body).deep_symbolize_keys
-      @link = extract_link json
+      @shared_link = extract_link json
     end
 
     def extract_link(json)

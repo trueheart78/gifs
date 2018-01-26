@@ -9,27 +9,35 @@ module Gifs
     end
 
     def url
-      [Dropbox::PUBLIC_HOST, path].compact.join
+      URI.join(Dropbox::PUBLIC_HOST, File.join(remote_path, CGI.escape(basename))).to_s
+    end
+
+    def md
+      "![#{basename}](#{url})"
     end
 
     def to_s
       "#{id}: #{url}"
     end
 
-    def to_md
-      "![#{basename}](#{url})"
+    def basename
+      File.basename hash[:path_lower]
+    end
+
+    def directory
+      File.dirname(hash[:path_lower]).gsub('/gifs', '')
+    end
+
+    def size
+      hash[:size]
+    end
+
+    def remote_path
+      File.dirname URI.parse(hash[:url]).path
     end
 
     private
 
     attr_reader :hash
-
-    def basename
-      File.basename hash[:path_lower]
-    end
-
-    def path
-      URI.parse(hash[:url]).path
-    end
   end
 end
