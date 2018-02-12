@@ -1,14 +1,16 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'bundler/setup'
 require 'gifs'
 
 if File.exist? Gifs.db_path
-	puts 'Reset the current database cache? (Y/N) '.colorize(:red)
-	input = gets.chomp
-	if input.downcase == 'y'
-		File.unlink Gifs.db_path
-		puts 'Database cache has been reset'.colorize(:yellow)
-	end
+  puts 'Reset the current database cache? (Y/N) '.colorize(:red)
+  input = gets.chomp
+  if input.casecmp('y').zero?
+    File.unlink Gifs.db_path
+    puts 'Database cache has been reset'.colorize(:yellow)
+  end
 else
   puts 'No database cache currently exists'.colorize(:yellow)
 end

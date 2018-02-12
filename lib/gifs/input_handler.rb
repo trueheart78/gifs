@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gifs
   class InputHandler
     def initialize(input:, mode:)
@@ -58,9 +60,7 @@ module Gifs
 
     def create_entry(relative_path)
       return unless Gifs.gif_exists? relative_path
-      Entry.new(relative_path).tap do |new_entry|
-        new_entry.create_link
-      end
+      Entry.new(relative_path).tap(&:create_link)
     end
 
     def processed?

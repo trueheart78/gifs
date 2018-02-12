@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gifs
   module Models
     class SharedLink < ActiveRecord::Base

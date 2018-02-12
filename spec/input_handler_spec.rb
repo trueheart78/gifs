@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Gifs::InputHandler do
@@ -259,7 +261,7 @@ RSpec.describe Gifs::InputHandler do
       let(:input) { mixed_existence_gifs.join ' ' }
     end
 
-    let(:fake_entry) { instance_double "Entry" }
+    let(:fake_entry) { instance_double 'Entry' }
   end
 
   let(:input)        { existing_gif }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gifs
   module Models
     class Gif < ActiveRecord::Base
@@ -16,13 +18,13 @@ module Gifs
       end
 
       def self.import(link)
-        self.create(basename: link.basename, directory: link.directory, size: link.size).tap do |gif|
+        create(basename: link.basename, directory: link.directory, size: link.size).tap do |gif|
           shared_link = SharedLink.find_by_id link.id
-          if shared_link
-            gif.shared_link = shared_link
-          else
-            gif.shared_link = SharedLink.create id: link.id, remote_path: link.remote_path
-          end
+          gif.shared_link = if shared_link
+                              shared_link
+                            else
+                              SharedLink.create id: link.id, remote_path: link.remote_path
+                            end
           gif.update_attribute :shared_link_id, link.id
         end
       end

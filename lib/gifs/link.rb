@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gifs
   class Link
     def initialize(hash)

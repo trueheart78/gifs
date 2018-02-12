@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Gifs::Link do
@@ -20,7 +22,6 @@ RSpec.describe Gifs::Link do
   end
 
   describe '#directory' do
-
     subject { described_class.new(hash).directory }
 
     it 'should equal the expected directory' do

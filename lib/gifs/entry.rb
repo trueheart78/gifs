@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gifs
   class Entry
     delegate :url, to: :link
@@ -10,9 +12,7 @@ module Gifs
     end
 
     def self.load_by_id(id)
-      self.new(Gifs::Models::Gif.find_by_id(id).relative_path).tap do |entry|
-        entry.create_link
-      end
+      new(Gifs::Models::Gif.find_by_id(id).relative_path).tap(&:create_link)
     end
 
     def create_link
@@ -39,12 +39,12 @@ module Gifs
 
     def human_size
       link_size = link.size
-      types = %w(B KB MB GB)
+      types = %w[B KB MB GB]
       while link_size >= 1_000
         types.shift
-        link_size = link_size / 1_000.00
+        link_size /= 1_000.00
       end
-      round_to = (link.size < 1_000_000) ? 0 : 1
+      round_to = link.size < 1_000_000 ? 0 : 1
       "#{link_size.round(round_to)} #{types.first.upcase}"
     end
 
@@ -73,9 +73,7 @@ module Gifs
     end
 
     def load_record
-      unless gif && shared_link
-        @gif = Gifs::Models::Gif.import dropbox_link
-      end
+      @gif = Gifs::Models::Gif.import dropbox_link unless gif && shared_link
       shared_link.increment! :count
       @link = shared_link
     end

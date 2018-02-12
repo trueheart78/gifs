@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'typhoeus'
 require 'typhoeus/adapters/faraday'
@@ -8,7 +10,7 @@ module Gifs
   class Dropbox
     Error = Class.new StandardError
 
-    PUBLIC_HOST = 'https://dl.dropboxusercontent.com'.freeze
+    PUBLIC_HOST = 'https://dl.dropboxusercontent.com'
 
     def public_link(file_path:, directory: '/gifs')
       @file_path = File.join(directory, file_path)
@@ -71,8 +73,8 @@ module Gifs
     end
 
     def extract_link(json)
-      return if json[:links] && json[:links].empty?
-      return Link.new(json[:links].first) if json[:links] && json[:links].any?
+      return if json[:links]&.empty?
+      return Link.new(json[:links].first) if json[:links]&.any?
       Link.new json
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def fixture_dir
   File.join Dir.getwd, 'spec', 'fixtures'
 end

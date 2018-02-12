@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'dropbox api' do
   let(:default_gif_path) { existing_gif }
   let(:default_gif_basename) { File.basename default_gif_path }

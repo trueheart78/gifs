@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_record'
 require 'sqlite3'
 require 'colorize'
@@ -52,11 +54,11 @@ module Gifs
     private
 
     def data_path
-      File.join gifs_path, ".#{self.name.downcase}"
+      File.join gifs_path, ".#{name.downcase}"
     end
 
     def db_name
-      "#{self.name.downcase}.sqlite3.db"
+      "#{name.downcase}.sqlite3.db"
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Gifs::Entry do
@@ -98,7 +100,7 @@ RSpec.describe Gifs::Entry do
   end
 
   let(:gif_path)     { existing_gif }
-  let(:fake_dropbox) { instance_double "Gifs::Dropbox" }
+  let(:fake_dropbox) { instance_double 'Gifs::Dropbox' }
   let(:link_params) do
     {
       file_path: gif_path

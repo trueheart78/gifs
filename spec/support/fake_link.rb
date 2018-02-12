@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FakeLink = Struct.new :id, :path, :size, :count, :url do
   def md
     "![#{basename}](#{url})"
