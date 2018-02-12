@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Josh Mills']
   spec.email         = ['josh@trueheart78.com']
 
-  spec.summary       = 'A gif manager for my ever-growing collection.'
+  spec.summary       = 'A dropbox-based gif manager for my ever-growing collection.'
   spec.homepage      = 'https://github.com/trueheart78/gifs'
   spec.license       = 'MIT'
 
