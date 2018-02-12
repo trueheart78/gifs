@@ -4,8 +4,6 @@
 
 Gif management using Dropbox public links and Sqlite in a gem package. :heart:
 
-Currently requires access to Dropbox via the `~/Dropbox` path. Expects a `~/Dropbox/gifs` directory storing gifs. This is also where the database file will be created, to track public Dropbox links for each gif.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -25,6 +23,10 @@ Or install it yourself as:
 ## Dropbox Integration
 
 First, you need to create a new [Dropbox app][dropbox-new-app], using the **Dropbox API** (not the business option), with **Full Dropbox** access. Once you have that setup, you will need to click the _Generate_ button beneath the **Generate Access Token** header of the **OAuth2** section. This is the token that will be used for interacting with your Dropbox account.
+
+### Gifs Directory
+
+Expects a `gifs` directory in your Dropboxs. This is also where the database file will be created, to track public Dropbox links for each gif.
 
 ### Configuration File
 
@@ -110,7 +112,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/gifs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/trueheart78/gifs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
