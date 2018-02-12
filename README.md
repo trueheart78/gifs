@@ -45,16 +45,9 @@ There are currently two executables that can be called.
 
 Listens for gif paths to be entered and checks with the local database before reaching out to create a new shareable link via the Dropbox API.
 
-Data displayed includes the name of the gif, the shareable link, and a markdown version of the shareable link. Where applicable, it will also copy the url to your clipboard.
+Data displayed includes the name of the id gif, its directories, basename, size, number of times used, and the data copied to the clipboard
 
-```
-Waiting for input...
-'/home/josh/Dropbox/gifs/love it/taylor.gif' 
-gif: /love it/taylor.gif
-url: https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif
-markdown: ![taylor.gif](https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif)
-Waiting for input...
-```
+![listener example](listener-example.gif)
 
 ![taylor.gif](https://dl.dropboxusercontent.com/s/rhkozj2hwt82bc7/taylor.gif)
 
