@@ -16,7 +16,7 @@ RSpec.describe Gifs::Models::SharedLink do
   context 'public api' do
     subject { described_class.new }
 
-    it { is_expected.to respond_to :dropbox_id }
+    it { is_expected.to respond_to :id }
     it { is_expected.to respond_to :remote_path }
     it { is_expected.to respond_to :count }
   end
@@ -53,13 +53,11 @@ RSpec.describe Gifs::Models::SharedLink do
     end
   end
 
-  junklet :dropbox_id
   let(:remote_path) { "/s/#{junk}" }
   let(:basename)    { 'sample.gif' }
 
   let(:shared_link) do
     FactoryBot.create :shared_link,
-                      dropbox_id: dropbox_id,
                       remote_path: remote_path
   end
 end

@@ -22,6 +22,7 @@ def fake_link
   @fake_link ||= FakeLink.new fake_id,
                               existing_gif,
                               0,
+                              1,
                               fake_url
 end
 

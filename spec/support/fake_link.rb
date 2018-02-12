@@ -1,4 +1,4 @@
-FakeLink = Struct.new :id, :path, :size, :url do
+FakeLink = Struct.new :id, :path, :size, :count, :url do
   def md
     "![#{basename}](#{url})"
   end

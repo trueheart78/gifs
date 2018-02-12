@@ -87,14 +87,8 @@ RSpec.describe Gifs::Entry do
       end
 
       let(:expected_output) do
-        [
-          '----------',
-          "gif: #{fake_link.basename}",
-          "size: #{fake_link.size}",
-          "url: #{fake_link.url}",
-          "markdown: #{fake_link.md}",
-          '----------'
-        ].join "\n"
+        "[1] [#{File.dirname(gif_path)}] #{fake_link.basename} " \
+        "(#{fake_link.size} B) [used: #{fake_link.count}]".colorize(Gifs::Theme.new_entry)
       end
     end
 
@@ -107,7 +101,7 @@ RSpec.describe Gifs::Entry do
   let(:fake_dropbox) { instance_double "Gifs::Dropbox" }
   let(:link_params) do
     {
-      file_path: File.join('/gifs', gif_path)
+      file_path: gif_path
     }
   end
 end
