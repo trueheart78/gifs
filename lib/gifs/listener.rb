@@ -6,6 +6,7 @@ module Gifs
       @mode = mode
     end
 
+    # rubocop:disable AbcSize, MethodLength
     def start
       Gifs.db_connect
       welcome_user unless input_handler
@@ -33,6 +34,7 @@ module Gifs
     ensure
       Gifs.db_disconnect
     end
+    # rubocop:enable AbcSize, MethodLength
 
     private
 

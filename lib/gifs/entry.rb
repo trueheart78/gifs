@@ -25,7 +25,8 @@ module Gifs
     def to_s
       create_link
       return unless link
-      "[#{gif.id}] [#{gif.tags}] #{link.basename} (#{human_size}) [used: #{link.count}]".colorize(color)
+      "[#{gif.id}] [#{gif.tags}] #{link.basename} (#{human_size}) " \
+        "[used: #{link.count}]".colorize(color)
     end
 
     private
@@ -53,7 +54,9 @@ module Gifs
     end
 
     def gif
-      @gif ||= Models::Gif.includes(:shared_link).where(basename: basename, directory: directory, size: size).first
+      @gif ||= Models::Gif.includes(:shared_link)
+                          .where(basename: basename, directory: directory, size: size)
+                          .first
     end
 
     def basename

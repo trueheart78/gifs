@@ -1,37 +1,27 @@
 # frozen_string_literal: true
 
+# rubocop:disable ClassLength
 module Gifs
   class InputHandler
     def initialize(input:, mode:)
       @input = input
       @mode = mode
-      @exit = false
+      @continue = true
       @processed = false
       @mode_change = false
       @entries = []
     end
 
     def process
-      unless processed?
-        @input = clean_input
-        if input.in? exit_phrases
-          @exit = true
-        elsif input.in? mode_phrases
-          detect_mode
-        elsif integer?
-          @entries = [Entry.load_by_id(input.to_i)]
-        else
-          @entries = split_input.map do |relative_path|
-            create_entry relative_path
-          end
-        end
-        @processed = true
-      end
+      return if processed?
+      clean_input
+      analyze_input
+      mark_as_processed
     end
 
     def continue?
       process unless processed?
-      !@exit
+      @continue
     end
 
     def mode_change?
@@ -56,11 +46,41 @@ module Gifs
 
     private
 
-    attr_reader :input, :exit
+    attr_reader :continue
+
+    def input
+      @input.strip
+    end
+
+    def analyze_input
+      if input.in? exit_phrases
+        @continue = false
+      elsif input.in? mode_phrases
+        detect_mode
+      elsif integer?
+        find_entry
+      else
+        create_entries
+      end
+    end
+
+    def find_entry
+      @entries = [Entry.load_by_id(input.to_i)]
+    end
+
+    def create_entries
+      @entries = split_input.map do |relative_path|
+        create_entry relative_path
+      end
+    end
 
     def create_entry(relative_path)
       return unless Gifs.gif_exists? relative_path
       Entry.new(relative_path).tap(&:create_link)
+    end
+
+    def mark_as_processed
+      @processed = true
     end
 
     def processed?
@@ -85,22 +105,29 @@ module Gifs
     end
 
     def clean_input
-      input.strip!
-      if apostrophes? input
-        input[1...-1].gsub(".gif' '", '.gif ').strip
-      elsif double_quotes? input
-        input[1...-1].gsub('.gif" "', '.gif ').strip
-      else
-        input.delete('\\').strip
-      end
+      @input = if apostrophes? input
+                 remove_apostrophes
+               elsif double_quotes? input
+                 remove_double_quotes
+               else
+                 input.delete('\\').strip
+               end
     end
 
     def apostrophes?(input)
       input.starts_with?("'") && input.ends_with?("'")
     end
 
+    def remove_apostrophes
+      input[1...-1].gsub(".gif' '", '.gif ').strip
+    end
+
     def double_quotes?(input)
       input.starts_with?('"') && input.ends_with?('"')
+    end
+
+    def remove_double_quotes
+      input[1...-1].gsub('.gif" "', '.gif ').strip
     end
 
     def multiple_entries?(input)
@@ -137,3 +164,4 @@ module Gifs
     end
   end
 end
+# rubocop:enable ClassLength
