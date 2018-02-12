@@ -133,7 +133,7 @@ module Gifs
     end
 
     def exit_phrases
-      %w[exit quit q e :q :e]
+      %w[exit quit q e :q :e stop halt]
     end
   end
 end
