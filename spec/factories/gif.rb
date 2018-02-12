@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :gif, aliases: [:existing_gif], class: Gifs::Models::Gif do
-    base_name 'sample.gif'
+    basename 'sample.gif'
     directory 'thumbs up'
-    size 4000
+    size 0
 
     factory :missing_gif do
       directory 'empty'

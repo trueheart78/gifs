@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'dropbox api' do
   let(:default_gif_path) { existing_gif }
   let(:default_gif_basename) { File.basename default_gif_path }
@@ -64,6 +66,7 @@ RSpec.shared_context 'dropbox api' do
   end
 
   def stub_api_request(file_path, type:, status:, json_body:)
+    file_path = '/gifs/' + file_path
     endpoint = type == :create ? 'create_shared_link_with_settings' : 'list_shared_links'
     stub_request(:post, "https://api.dropboxapi.com/2/sharing/#{endpoint}")
       .with(body: json_body(file_path, type: type),

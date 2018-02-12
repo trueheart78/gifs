@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'database' do
   before(:each) do
     allow(Gifs).to receive(:db_path).and_return temp_database_path

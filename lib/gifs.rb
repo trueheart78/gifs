@@ -1,15 +1,21 @@
+# frozen_string_literal: true
+
 require 'active_record'
 require 'sqlite3'
+require 'colorize'
 require 'clipboard'
+require 'byebug'
 require 'gifs/version'
 require 'gifs/config'
+require 'gifs/theme'
 require 'gifs/directory'
 require 'gifs/models/gif'
-require 'gifs/models/dropbox_link'
+require 'gifs/models/shared_link'
 require 'gifs/link'
 require 'gifs/dropbox'
 require 'gifs/entry'
 require 'gifs/listener'
+require 'gifs/input_handler'
 
 module Gifs
   class << self
@@ -48,11 +54,11 @@ module Gifs
     private
 
     def data_path
-      File.join gifs_path, ".#{self.name.downcase}"
+      File.join gifs_path, ".#{name.downcase}"
     end
 
     def db_name
-      "#{self.name.downcase}.sqlite3.db"
+      "#{name.downcase}.sqlite3.db"
     end
   end
 end
