@@ -1,70 +1,78 @@
+# frozen_string_literal: true
+
 module Gifs
   class Listener
-    class << self
-      def start
-        input = clean_input prompt_input
-        kick_out = false
-        parse(input).each do |entry|
-          kick_out = true if exit_code? entry
-          break if kick_out
-          handle_input "#{entry}.gif" unless exit_code? entry
-        end
-        start unless kick_out
-        exit_gracefully if kick_out
-      end
+    def initialize(mode = :url)
+      @mode = mode
+    end
 
-      private
-
-      def handle_input(entry)
-        if Gifs.gif_exists? entry
-          link = Gifs::Dropbox.new.public_link file_path: File.join('/gifs', entry)
-          Clipboard.copy link.url
-          output entry, link
+    # rubocop:disable AbcSize, MethodLength
+    def start
+      Gifs.db_connect
+      welcome_user unless input_handler
+      input_handler(prompt_input).process
+      if input_handler.continue?
+        if input_handler.mode_change?
+          @mode = input_handler.mode
+          display_mode_shift
         else
-          puts 'error: file does not exist' + " [#{entry}]"
+          input_handler.entries.each do |entry|
+            puts entry
+          end
+          @recent_entry = input_handler.entry
         end
-      rescue Gifs::Dropbox::Error => e
-        puts "dropbox error: #{e.message}"
+        if recent_entry
+          Clipboard.copy recent_entry.send(mode)
+          display_copied_data
+        end
+      else
+        exit_gracefully
+        return
       end
+      Gifs.db_disconnect
+      start
+    ensure
+      Gifs.db_disconnect
+    end
+    # rubocop:enable AbcSize, MethodLength
 
-      def output(entry, link)
-        puts '**********'
-        puts "gif: #{entry}"
-        puts "url: #{link.url}"
-        puts "markdown: #{link.to_md}"
-        puts '**********'
-      end
+    private
 
-      def exit_gracefully
-        puts 'Exiting.'
-      end
+    attr_reader :mode, :recent_entry
 
-      def prompt_input
-        puts 'Waiting for input...'
-        gets.chomp
-      end
+    def display_mode_shift
+      puts "♪ mode shifted to #{mode} ♪".colorize(Theme.mode_shift)
+    end
 
-      def clean_input(input)
-        input.delete('\\').strip
-      end
+    def display_copied_data
+      puts recent_entry.send(mode).to_s.colorize(Theme.clipboard)
+    end
 
-      def multiple_entries?(input)
-        return true if input.scan('.gif').size > 1
-        false
-      end
+    def reset_input_handler
+      @input_handler = nil
+    end
 
-      def parse(input)
-        input.gsub(Gifs.gifs_path, '').split('.gif').map(&:strip)
-      end
+    def input_handler(input = nil)
+      @input_handler = InputHandler.new(input: input, mode: mode) if input
+      @input_handler
+    end
 
-      def exit_code?(input)
-        return true if exit_phrases.include? input.downcase
-        false
-      end
+    def prompt_input
+      print 'Waiting for input...'.colorize(Theme.prompt)
+      puts "               ♪ #{mode} ♪".colorize(Theme.mode_shift)
+      gets.chomp
+    end
 
-      def exit_phrases
-        %w[exit quit q e :q :e]
-      end
+    def welcome_user
+      print '♥'.colorize(Theme.heart)
+      print ' Welcome '.colorize(Theme.welcome)
+      puts '♥'.colorize(Theme.heart)
+    end
+
+    def exit_gracefully
+      print '♥'.colorize(Theme.heart)
+      print ' Goodbye '.colorize(Theme.goodbye)
+      puts '♥'.colorize(Theme.heart)
     end
   end
 end

@@ -1,7 +1,15 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Gifs::Dropbox do
   include_context 'dropbox api'
+
+  describe 'PUBLIC_HOST' do
+    subject { described_class::PUBLIC_HOST }
+
+    it { is_expected.to eq 'https://dl.dropboxusercontent.com' }
+  end
 
   describe '#public_link' do
     subject { described_class.new.public_link file_path: default_gif_path }

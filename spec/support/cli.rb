@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def capture_output
   new_stdout = StringIO.new
   old_stdout = $stdout

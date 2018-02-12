@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'clean environment' do
   after(:each) do
     ENV[Gifs::Config::DROPBOX_PATH] = env_bak[:path]
