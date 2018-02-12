@@ -28,9 +28,11 @@ def fake_link
                               fake_url
 end
 
+# rubocop:disable LineLength
 def fake_url
   @fake_url ||= URI.join(Gifs::Dropbox::PUBLIC_HOST, '/s/fakeDropboxString/', File.basename(existing_gif)).to_s
 end
+# rubocop:enable LineLength
 
 def fake_id
   @fake_id ||= 'fakeDropboxId'
