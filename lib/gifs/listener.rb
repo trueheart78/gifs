@@ -20,12 +20,13 @@ module Gifs
         end
         if recent_entry
           Clipboard.copy recent_entry.send(mode)
-          display_copied_data if input_handler.mode_change?
+          display_copied_data
         end
       else
         exit_gracefully
         return
       end
+      Gifs::db_disconnect
       start
     ensure
       Gifs::db_disconnect
