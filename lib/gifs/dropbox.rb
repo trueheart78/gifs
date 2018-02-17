@@ -10,7 +10,7 @@ module Gifs
   class Dropbox
     Error = Class.new StandardError
 
-    PUBLIC_HOST = 'https://dl.dropboxusercontent.com'
+    PUBLIC_HOST = 'https://dl.dropboxusercontent.com'.freeze
 
     def public_link(file_path:, directory: '/gifs')
       @file_path = File.join(directory, file_path)
@@ -73,8 +73,8 @@ module Gifs
     end
 
     def extract_link(json)
-      return if json[:links]&.empty?
-      return Link.new(json[:links].first) if json[:links]&.any?
+      return unless json[:links] || json[:links].empty?
+      return Link.new(json[:links].first) if json[:links].any?
       Link.new json
     end
 

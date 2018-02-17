@@ -9,6 +9,7 @@ AllCops:
     - 'Rakefile'
     - 'bin/*'
     - 'spec/spec_helper\.rb'
+  TargetRubyVersion: 2.2
 
 # skips style of child classes and modules.
 Style/ClassAndModuleChildren:

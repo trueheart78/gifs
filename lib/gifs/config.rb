@@ -8,8 +8,8 @@ module Gifs
     MissingConfigValues = Class.new StandardError
 
     CONFIG_FILE = File.expand_path('~/.gifs_config').freeze
-    DROPBOX_PATH = 'DROPBOX_PATH'
-    DROPBOX_TOKEN = 'DROPBOX_TOKEN'
+    DROPBOX_PATH = 'DROPBOX_PATH'.freeze
+    DROPBOX_TOKEN = 'DROPBOX_TOKEN'.freeze
 
     def initialize
       return if required_keys? ENV

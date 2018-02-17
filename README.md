@@ -28,6 +28,10 @@ First, you need to create a new [Dropbox app][dropbox-new-app], using the **Drop
 
 Expects a `gifs` directory in your Dropboxs. This is also where the database file will be created, to track public Dropbox links for each gif.
 
+#### Warning: Sharing Your Gifs Directory
+
+If you share your `gifs` directory by creating a shared link, it will cause this gem to break. Deleting the link you created will restore functionality.
+
 ### Configuration File
 
 The configuration file needs to be created at `~/.gifs_config`, in YAML format.
