@@ -6,7 +6,7 @@ require 'gifs'
 
 if File.exist? Gifs.db_path
   puts 'Reset the current database cache? (Y/N) '.colorize(:red)
-  input = gets.chomp
+  input = STDIN.gets.chomp
   if input.casecmp('y').zero?
     File.unlink Gifs.db_path
     puts 'Database cache has been reset'.colorize(:yellow)

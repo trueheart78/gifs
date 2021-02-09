@@ -60,7 +60,7 @@ module Gifs
     def prompt_input
       print 'Waiting for input...'.colorize(Theme.prompt)
       puts "               ♪ #{mode} ♪".colorize(Theme.mode_shift)
-      gets.chomp
+      STDIN.gets.chomp
     end
 
     def welcome_user
